@@ -19,6 +19,13 @@ public partial class MainForm : Form
             Text = Program.OpenedFileName;
         };
         Controls.Add(XFEFileTextEditor);
+        var fileType = RegistrySystem.GetRegisteredFileType(".xfe");
+        if (fileType is null)
+        {
+            var result = MessageBox.Show("检测到未注册.xfe后缀类型，是否注册？", "文件未注册", MessageBoxButtons.OKCancel);
+            if (result == DialogResult.OK)
+                AdministratorPermission.GetPermissionAndReboot();
+        }
     }
 
     private void XFEFileTextEditor_TextChanged(object? sender, EventArgs e)

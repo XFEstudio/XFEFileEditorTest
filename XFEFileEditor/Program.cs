@@ -40,12 +40,5 @@ public static class Program
             Size = new Size(InputSimulator.GetScreenSize().X / 2, InputSimulator.GetScreenSize().Y / 2)
         };
         Application.Run(mainForm);
-        var fileType = RegistrySystem.GetRegisteredFileType(".xfe");
-        if (fileType is null)
-        {
-            var result = MessageBox.Show("检测到未注册.xfe后缀类型，是否注册？", "文件未注册", MessageBoxButtons.OKCancel);
-            if (result == DialogResult.OK)
-                AdministratorPermission.GetPermissionAndReboot();
-        }
     }
 }
