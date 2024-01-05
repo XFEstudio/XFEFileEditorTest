@@ -6,7 +6,12 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>寰宇朽力定稿版_透明图标.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="寰宇朽力定稿版_透明图标.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="XFE各类拓展.NetCore" Version="1.2.3" />

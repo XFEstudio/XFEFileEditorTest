@@ -23,7 +23,7 @@ public static class RegistrySystem
         }
         return null;
     }
-    public static void RegisterFileAssociation(string extension, string fileType, string appName, string iconPath = "0")
+    public static void RegisterFileAssociation(string extension, string fileType, string appName, string iconPath = "Default")
     {
         try
         {
@@ -37,7 +37,7 @@ public static class RegistrySystem
             using (var key = Registry.ClassesRoot.CreateSubKey(fileType))
             {
                 key.SetValue("", appName + " File");
-                key.CreateSubKey("DefaultIcon").SetValue("", $"{SystemPath.GetExecutablePath()},{iconPath}");
+                key.CreateSubKey("DefaultIcon").SetValue("", $"{(iconPath == "Default" ? $"{SystemPath.GetExecutablePath()},0" : iconPath)}");
                 key.CreateSubKey("shell\\open\\command").SetValue("", SystemPath.GetExecutablePath() + " \"%1\"");
             }
         }
