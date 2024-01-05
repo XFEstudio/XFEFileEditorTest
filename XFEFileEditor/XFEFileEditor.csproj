@@ -6,16 +6,26 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <ApplicationIcon>寰宇朽力定稿版_透明图标.ico</ApplicationIcon>
+    <ApplicationIcon>AppIcon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="寰宇朽力定稿版_透明图标.ico" />
+    <None Remove="XFEFileIcon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="AppIcon.ico" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="XFE各类拓展.NetCore" Version="1.2.3" />
     <PackageReference Include="XFE各类拓展.NetCore.InputSimulator" Version="1.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="XFEFileIcon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
