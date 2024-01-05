@@ -23,7 +23,7 @@ public static class Program
         switch (AdministratorPermission.PermissionState)
         {
             case CurrentPermissionState.Administration:
-                RegistrySystem.RegisterFileAssociation(".xfe", "XFEFileType", "XFE文件", "XFEFileIcon.ico");
+                RegistrySystem.RegisterFileAssociation(".xfe", "XFEFileType", "XFE文件", AppDomain.CurrentDomain.BaseDirectory + "XFEFileIcon.ico");
                 break;
             case CurrentPermissionState.PermissionDenied:
                 MessageBox.Show("无法获取管理员权限，无法注册文件扩展名");
