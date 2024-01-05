@@ -28,20 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
+            label1 = new Label();
             SuspendLayout();
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(125, 192);
+            label1.Name = "label1";
+            label1.Size = new Size(82, 31);
+            label1.TabIndex = 0;
+            label1.Text = "label1";
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(14F, 31F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(label1);
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "XFE文件编辑器";
             SizeChanged += MainForm_SizeChanged;
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private Label label1;
     }
 }
