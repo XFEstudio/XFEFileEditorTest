@@ -6,23 +6,13 @@ namespace XFEFileEditor;
 
 public static class Program
 {
-    public static bool IsOpenedByFile { get; set; }
-    private static string? openedFilePath;
-
-    public static string? OpenedFilePath
-    {
-        get { return openedFilePath; }
-        set { if (value is not null) IsOpenedByFile = true; openedFilePath = value; OpenedFileName = Path.GetFileName(value); }
-    }
-    public static string? OpenedFileName { get; set; }
-
     /// <summary>
     ///  The main entry point for the application.
     /// </summary>
     [STAThread]
-    static async Task Main()
+    static void Main()
     {
-        await XFEProfile.LoadProfiles(typeof(SystemProfile));
+        XFEProfile.LoadProfiles(new ProfileInfo(typeof(SystemProfile),@"Profile\SystemProfile.xfe")).Wait();
         switch (AdministratorPermission.PermissionState)
         {
             case CurrentPermissionState.Administration:
@@ -36,7 +26,7 @@ public static class Program
             default:
                 break;
         }
-        OpenedFilePath = SystemPath.GetOpenFilePath();
+        SystemProfile.OpenedFilePath = SystemPath.GetOpenFilePath();
         ApplicationConfiguration.Initialize();
         var mainForm = new MainForm()
         {
