@@ -1,4 +1,6 @@
 using XFE各类拓展.NetCore.InputSimulator;
+using XFE各类拓展.NetCore.PermissionExtension;
+using XFE各类拓展.NetCore.ProfileExtension;
 
 namespace XFEFileEditor;
 
@@ -18,8 +20,9 @@ public static class Program
     ///  The main entry point for the application.
     /// </summary>
     [STAThread]
-    static void Main()
+    static async Task Main()
     {
+        await XFEProfile.LoadProfiles(typeof(SystemProfile));
         switch (AdministratorPermission.PermissionState)
         {
             case CurrentPermissionState.Administration:

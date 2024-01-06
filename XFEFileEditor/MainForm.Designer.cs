@@ -28,34 +28,54 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
+            bottomPanel = new Panel();
+            fontSizeNumericUpDown = new NumericUpDown();
+            bottomPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)fontSizeNumericUpDown).BeginInit();
             SuspendLayout();
             // 
-            // label1
+            // bottomPanel
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(125, 192);
-            label1.Name = "label1";
-            label1.Size = new Size(82, 31);
-            label1.TabIndex = 0;
-            label1.Text = "label1";
+            bottomPanel.BackColor = Color.FromArgb(50, 50, 50);
+            bottomPanel.Controls.Add(fontSizeNumericUpDown);
+            bottomPanel.Dock = DockStyle.Bottom;
+            bottomPanel.Location = new Point(0, 550);
+            bottomPanel.Name = "bottomPanel";
+            bottomPanel.Size = new Size(906, 36);
+            bottomPanel.TabIndex = 0;
+            // 
+            // fontSizeNumericUpDown
+            // 
+            fontSizeNumericUpDown.BackColor = Color.FromArgb(30, 30, 30);
+            fontSizeNumericUpDown.Dock = DockStyle.Left;
+            fontSizeNumericUpDown.ForeColor = Color.White;
+            fontSizeNumericUpDown.Location = new Point(0, 0);
+            fontSizeNumericUpDown.Name = "fontSizeNumericUpDown";
+            fontSizeNumericUpDown.Size = new Size(125, 30);
+            fontSizeNumericUpDown.TabIndex = 0;
+            fontSizeNumericUpDown.ValueChanged += FontSizeNumericUpDown_ValueChanged;
             // 
             // MainForm
             // 
-            AutoScaleDimensions = new SizeF(14F, 31F);
+            AutoScaleDimensions = new SizeF(11F, 24F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(label1);
+            BackColor = Color.FromArgb(30, 30, 30);
+            ClientSize = new Size(906, 586);
+            Controls.Add(bottomPanel);
+            ForeColor = Color.White;
+            Margin = new Padding(2);
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "XFE文件编辑器";
             SizeChanged += MainForm_SizeChanged;
+            bottomPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)fontSizeNumericUpDown).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
-        private Label label1;
+        private Panel bottomPanel;
+        private NumericUpDown fontSizeNumericUpDown;
     }
 }

@@ -1,3 +1,5 @@
+using XFE各类拓展.NetCore.PermissionExtension;
+
 namespace XFEFileEditor;
 
 public partial class MainForm : Form
@@ -6,11 +8,15 @@ public partial class MainForm : Form
     {
         Multiline = true,
         ScrollBars = ScrollBars.Vertical,
+        BackColor = Color.FromArgb(30, 30, 30),
+        ForeColor = Color.White,
+        Dock = DockStyle.Fill,
+        Font = new("Microsoft YaHei UI", SystemProfile.FontSize)
     };
     public MainForm()
     {
         InitializeComponent();
-        XFEFileTextEditor.Size = Size;
+        fontSizeNumericUpDown.Value = SystemProfile.FontSize;
         XFEFileTextEditor.KeyDown += XFEFileTextEditor_KeyDown;
         XFEFileTextEditor.TextChanged += XFEFileTextEditor_TextChanged;
         if (Program.IsOpenedByFile)
@@ -20,7 +26,7 @@ public partial class MainForm : Form
         };
         Controls.Add(XFEFileTextEditor);
         var fileType = RegistrySystem.GetRegisteredFileType(".xfe");
-        if (fileType is null)
+        if (fileType != "XFEFileType")
         {
             var result = MessageBox.Show("检测到未注册.xfe后缀类型，是否注册？", "文件未注册", MessageBoxButtons.OKCancel);
             if (result == DialogResult.OK)
@@ -64,7 +70,12 @@ public partial class MainForm : Form
 
     private void MainForm_SizeChanged(object sender, EventArgs e)
     {
-        if (XFEFileTextEditor is not null)
-            XFEFileTextEditor.Size = Size;
+
+    }
+
+    private void FontSizeNumericUpDown_ValueChanged(object sender, EventArgs e)
+    {
+        SystemProfile.FontSize = (int)fontSizeNumericUpDown.Value;
+        XFEFileTextEditor.Font = new("Microsoft YaHei UI", SystemProfile.FontSize);
     }
 }
