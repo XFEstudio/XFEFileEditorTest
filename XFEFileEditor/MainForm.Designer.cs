@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             bottomPanel = new FlowLayoutPanel();
             fontSizeLabel = new Label();
             fontSizeNumericUpDown = new NumericUpDown();
@@ -37,6 +38,10 @@
             openFileToolStripMenuItem = new ToolStripMenuItem();
             saveFileToolStripMenuItem = new ToolStripMenuItem();
             saveFileAsToolStripMenuItem = new ToolStripMenuItem();
+            settingToolStripMenuItem = new ToolStripMenuItem();
+            optionSettingToolStripMenuItem = new ToolStripMenuItem();
+            toolStripMenuItem = new ToolStripMenuItem();
+            xFEDownloaderToolStripMenuItem = new ToolStripMenuItem();
             bottomPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)fontSizeNumericUpDown).BeginInit();
             menuStrip.SuspendLayout();
@@ -93,7 +98,7 @@
             // 
             menuStrip.BackColor = Color.FromArgb(50, 50, 50);
             menuStrip.ImageScalingSize = new Size(24, 24);
-            menuStrip.Items.AddRange(new ToolStripItem[] { 文件ToolStripMenuItem });
+            menuStrip.Items.AddRange(new ToolStripItem[] { 文件ToolStripMenuItem, settingToolStripMenuItem, toolStripMenuItem });
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
             menuStrip.Size = new Size(906, 32);
@@ -139,6 +144,43 @@
             saveFileAsToolStripMenuItem.Text = "另存为";
             saveFileAsToolStripMenuItem.Click += SaveFileAsToolStripMenuItem_Click;
             // 
+            // settingToolStripMenuItem
+            // 
+            settingToolStripMenuItem.BackColor = Color.FromArgb(50, 50, 50);
+            settingToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { optionSettingToolStripMenuItem });
+            settingToolStripMenuItem.ForeColor = Color.White;
+            settingToolStripMenuItem.Name = "settingToolStripMenuItem";
+            settingToolStripMenuItem.Size = new Size(62, 28);
+            settingToolStripMenuItem.Text = "设置";
+            // 
+            // optionSettingToolStripMenuItem
+            // 
+            optionSettingToolStripMenuItem.BackColor = Color.FromArgb(70, 70, 70);
+            optionSettingToolStripMenuItem.ForeColor = Color.White;
+            optionSettingToolStripMenuItem.Name = "optionSettingToolStripMenuItem";
+            optionSettingToolStripMenuItem.Size = new Size(182, 34);
+            optionSettingToolStripMenuItem.Text = "选项设置";
+            optionSettingToolStripMenuItem.Click += OptionSettingToolStripMenuItem_Click;
+            // 
+            // toolStripMenuItem
+            // 
+            toolStripMenuItem.BackColor = Color.FromArgb(50, 50, 50);
+            toolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { xFEDownloaderToolStripMenuItem });
+            toolStripMenuItem.ForeColor = Color.White;
+            toolStripMenuItem.Name = "toolStripMenuItem";
+            toolStripMenuItem.Size = new Size(62, 28);
+            toolStripMenuItem.Text = "工具";
+            // 
+            // xFEDownloaderToolStripMenuItem
+            // 
+            xFEDownloaderToolStripMenuItem.BackColor = Color.FromArgb(70, 70, 70);
+            xFEDownloaderToolStripMenuItem.ForeColor = Color.White;
+            xFEDownloaderToolStripMenuItem.Name = "xFEDownloaderToolStripMenuItem";
+            xFEDownloaderToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.D;
+            xFEDownloaderToolStripMenuItem.Size = new Size(270, 34);
+            xFEDownloaderToolStripMenuItem.Text = "XFE下载器";
+            xFEDownloaderToolStripMenuItem.Click += XFEDownloaderToolStripMenuItem_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(11F, 24F);
@@ -148,6 +190,7 @@
             Controls.Add(bottomPanel);
             Controls.Add(menuStrip);
             ForeColor = Color.White;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menuStrip;
             Margin = new Padding(2);
             Name = "MainForm";
@@ -175,5 +218,9 @@
         private ToolStripMenuItem openFileToolStripMenuItem;
         private ToolStripMenuItem saveFileToolStripMenuItem;
         private ToolStripMenuItem saveFileAsToolStripMenuItem;
+        private ToolStripMenuItem settingToolStripMenuItem;
+        private ToolStripMenuItem optionSettingToolStripMenuItem;
+        private ToolStripMenuItem toolStripMenuItem;
+        private ToolStripMenuItem xFEDownloaderToolStripMenuItem;
     }
 }

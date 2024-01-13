@@ -12,7 +12,10 @@ public static class Program
     [STAThread]
     static void Main()
     {
-        XFEProfile.LoadProfiles(new ProfileInfo(typeof(SystemProfile),@"Profile\SystemProfile.xfe")).Wait();
+        XFEProfile.ProfilesRootPath = $"{AppDomain.CurrentDomain.BaseDirectory}/Profiles";
+        XFEProfile.LoadProfiles(typeof(SystemProfile)).Wait();
+        if (!Directory.Exists(SystemProfile.XFEDownloaderRootPath))
+            Directory.CreateDirectory(SystemProfile.XFEDownloaderRootPath);
         switch (AdministratorPermission.PermissionState)
         {
             case CurrentPermissionState.Administration:

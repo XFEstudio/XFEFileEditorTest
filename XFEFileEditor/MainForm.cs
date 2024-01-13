@@ -4,6 +4,9 @@ namespace XFEFileEditor;
 
 public partial class MainForm : Form
 {
+    public static MainForm? Current { get; set; }
+    public static XFEDownloaderForm? CurrentDownloadForm { get; set; }
+    public static OptionForm? CurrentOptionForm { get; set; }
     public readonly TextBox XFEFileTextEditor = new()
     {
         Multiline = true,
@@ -11,15 +14,19 @@ public partial class MainForm : Form
         BackColor = Color.FromArgb(30, 30, 30),
         ForeColor = Color.White,
         Location = new Point(0, 31),
-        Font = new("Microsoft YaHei UI", SystemProfile.FontSize)
+        Font = new("Microsoft YaHei UI", SystemProfile.FontSize),
+        AllowDrop = true
     };
     public MainForm()
     {
+        Current = this;
         InitializeComponent();
         #region 控件初始化
         fontSizeNumericUpDown.Value = SystemProfile.FontSize;
         XFEFileTextEditor.Size = new Size(Size.Width, Size.Height - 32);
         XFEFileTextEditor.TextChanged += XFEFileTextEditor_TextChanged;
+        XFEFileTextEditor.DragEnter += XFEFileTextEditor_DragEnter;
+        XFEFileTextEditor.DragDrop += XFEFileTextEditor_DragDrop;
         if (SystemProfile.IsOpenedByFile)
         {
             LoadFileToEditor();
@@ -30,12 +37,39 @@ public partial class MainForm : Form
         var fileType = RegistrySystem.GetRegisteredFileType(".xfe");
         if (fileType != "XFEFileType")
         {
-            var result = MessageBox.Show("检测到未注册.xfe后缀类型，是否注册？", "文件未注册", MessageBoxButtons.OKCancel);
-            if (result == DialogResult.OK)
-                try { AdministratorPermission.GetPermissionAndReboot(); } catch (Exception ex) { MessageBox.Show(ex.Message); }
+            //var result = MessageBox.Show("检测到未注册.xfe后缀类型，是否注册？", "文件未注册", MessageBoxButtons.OKCancel);
+            //if (result == DialogResult.OK)
+            try { AdministratorPermission.GetPermissionAndReboot(); } catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
         #endregion
     }
+
+    private void XFEFileTextEditor_DragDrop(object? sender, DragEventArgs e)
+    {
+        if (e.Data is not null)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                var files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                foreach (var file in files)
+                {
+                    MessageBox.Show(file);
+                }
+            }
+        }
+    }
+
+    private void XFEFileTextEditor_DragEnter(object? sender, DragEventArgs e)
+    {
+        if (e.Data is not null)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.Copy;
+            }
+        }
+    }
+
     /// <summary>
     /// 将文件另存为
     /// </summary>
@@ -50,6 +84,9 @@ public partial class MainForm : Form
         {
             SystemProfile.OpenedFilePath = saveFileDialog.FileName;
             File.WriteAllText(saveFileDialog.FileName, XFEFileTextEditor.Text);
+            SystemProfile.IsSaved = true;
+            Text = SystemProfile.OpenedFileName;
+            saveStateLabel.Text = "所有更改均已保存";
             return true;
         }
         return false;
@@ -63,25 +100,33 @@ public partial class MainForm : Form
         if (SystemProfile.IsOpenedByFile)
         {
             File.WriteAllText(SystemProfile.OpenedFilePath!, XFEFileTextEditor.Text);
+            SystemProfile.IsSaved = true;
+            Text = SystemProfile.OpenedFileName;
+            saveStateLabel.Text = "所有更改均已保存";
+            return true;
         }
         else
         {
-            if (!SaveFileAs())
-                return false;
+            if (SaveFileAs())
+            {
+                SystemProfile.IsSaved = true;
+                Text = SystemProfile.OpenedFileName;
+                saveStateLabel.Text = "所有更改均已保存";
+                return true;
+            }
+            return false;
         }
-        SystemProfile.IsSaved = true;
-        Text = SystemProfile.OpenedFileName;
-        saveStateLabel.Text = "所有更改均已保存";
-        return true;
     }
     /// <summary>
     /// 将SystemProfile下的文件路径的文本加载进编辑器
     /// </summary>
     public void LoadFileToEditor()
     {
+        XFEFileTextEditor.TextChanged -= XFEFileTextEditor_TextChanged;
         saveStateLabel.Text = "没有任何改动";
         XFEFileTextEditor.Text = File.ReadAllText(SystemProfile.OpenedFilePath!);
         Text = SystemProfile.OpenedFileName;
+        XFEFileTextEditor.TextChanged += XFEFileTextEditor_TextChanged;
     }
 
     private void XFEFileTextEditor_TextChanged(object? sender, EventArgs e)
@@ -150,7 +195,34 @@ public partial class MainForm : Form
         if (openFileDialog.ShowDialog() == DialogResult.OK)
         {
             SystemProfile.OpenedFilePath = openFileDialog.FileName;
+            Text = SystemProfile.OpenedFileName;
             LoadFileToEditor();
+        }
+    }
+
+    private void OptionSettingToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        if (CurrentOptionForm is null || CurrentOptionForm.IsDisposed)
+        {
+            CurrentOptionForm = new OptionForm();
+            CurrentOptionForm.Show();
+        }
+        else
+        {
+            CurrentOptionForm.Focus();
+        }
+    }
+
+    private void XFEDownloaderToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        if (CurrentDownloadForm is null || CurrentDownloadForm.IsDisposed)
+        {
+            CurrentDownloadForm = new XFEDownloaderForm();
+            CurrentDownloadForm.Show();
+        }
+        else
+        {
+            CurrentDownloadForm.Focus();
         }
     }
 }
