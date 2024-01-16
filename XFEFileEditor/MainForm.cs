@@ -36,11 +36,7 @@ public partial class MainForm : Form
         #region ¼ì²â×¢²á
         var fileType = RegistrySystem.GetRegisteredFileType(".xfe");
         if (fileType != "XFEFileType")
-        {
-            //var result = MessageBox.Show("¼ì²âµ½Î´×¢²á.xfeºó×ºÀàÐÍ£¬ÊÇ·ñ×¢²á£¿", "ÎÄ¼þÎ´×¢²á", MessageBoxButtons.OKCancel);
-            //if (result == DialogResult.OK)
             try { AdministratorPermission.GetPermissionAndReboot(); } catch (Exception ex) { MessageBox.Show(ex.Message); }
-        }
         #endregion
     }
 
