@@ -2,9 +2,11 @@
 
 public partial class OptionForm : Form
 {
+    public static OptionForm? Current { get; private set; }
     public OptionForm()
     {
         InitializeComponent();
+        Current = this;
     }
 
     private void ConfirmButton_Click(object sender, EventArgs e)

@@ -1,6 +1,7 @@
 ﻿using XFE各类拓展.NetCore.ProfileExtension;
+using XFE各类拓展.NetCore.WebExtension;
 
-namespace XFEFileEditor;
+namespace XFEFileEditor.Profiles;
 
 public static class SystemProfile
 {
@@ -14,22 +15,6 @@ public static class SystemProfile
     {
         get { return fontSize; }
         set { fontSize = value; XFEProfile.SaveProfile(typeof(SystemProfile)); }
-    }
-    private static string xFEDownloaderRootPath = $"{AppDomain.CurrentDomain.BaseDirectory}XFEDownloader";
-
-    [ProfileProperty]
-    public static string XFEDownloaderRootPath
-    {
-        get { return xFEDownloaderRootPath; }
-        set { xFEDownloaderRootPath = value; XFEProfile.SaveProfile(typeof(SystemProfile)); }
-    }
-    private static int downloadThreadCount = 5;
-
-    [ProfileProperty]
-    public static int DownloadThreadCount
-    {
-        get { return downloadThreadCount; }
-        set { downloadThreadCount = value; XFEProfile.SaveProfile(typeof(SystemProfile)); }
     }
     #endregion
     #region 无需储存的配置文件

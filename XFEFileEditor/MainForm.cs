@@ -1,3 +1,4 @@
+using XFEFileEditor.Profiles;
 using XFE∏˜¿‡Õÿ’π.NetCore.PermissionExtension;
 
 namespace XFEFileEditor;
@@ -5,8 +6,6 @@ namespace XFEFileEditor;
 public partial class MainForm : Form
 {
     public static MainForm? Current { get; set; }
-    public static XFEDownloaderForm? CurrentDownloadForm { get; set; }
-    public static OptionForm? CurrentOptionForm { get; set; }
     public readonly TextBox XFEFileTextEditor = new()
     {
         Multiline = true,
@@ -198,27 +197,40 @@ public partial class MainForm : Form
 
     private void OptionSettingToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        if (CurrentOptionForm is null || CurrentOptionForm.IsDisposed)
+        if (OptionForm.Current is null || OptionForm.Current.IsDisposed)
         {
-            CurrentOptionForm = new OptionForm();
-            CurrentOptionForm.Show();
+            var optionForm = new OptionForm();
+            optionForm.Show();
         }
         else
         {
-            CurrentOptionForm.Focus();
+            OptionForm.Current.Focus();
         }
     }
 
     private void XFEDownloaderToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        if (CurrentDownloadForm is null || CurrentDownloadForm.IsDisposed)
+        if (XFEDownloaderForm.Current is null || XFEDownloaderForm.Current.IsDisposed)
         {
-            CurrentDownloadForm = new XFEDownloaderForm();
-            CurrentDownloadForm.Show();
+            var xFEDownloaderForm = new XFEDownloaderForm();
+            xFEDownloaderForm.Show();
         }
         else
         {
-            CurrentDownloadForm.Focus();
+            XFEDownloaderForm.Current.Focus();
+        }
+    }
+
+    private void StringReplaceToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        if (StringReplaceToolForm.Current is null || StringReplaceToolForm.Current.IsDisposed)
+        {
+            var stringReplaceToolForm = new StringReplaceToolForm();
+            stringReplaceToolForm.Show();
+        }
+        else
+        {
+            StringReplaceToolForm.Current.Focus();
         }
     }
 }

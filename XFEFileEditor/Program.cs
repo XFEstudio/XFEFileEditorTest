@@ -1,3 +1,4 @@
+using XFEFileEditor.Profiles;
 using XFE各类拓展.NetCore.InputSimulator;
 using XFE各类拓展.NetCore.PermissionExtension;
 using XFE各类拓展.NetCore.ProfileExtension;
@@ -13,9 +14,9 @@ public static class Program
     static void Main()
     {
         XFEProfile.ProfilesRootPath = $"{AppDomain.CurrentDomain.BaseDirectory}/Profiles";
-        XFEProfile.LoadProfiles(typeof(SystemProfile)).Wait();
-        if (!Directory.Exists(SystemProfile.XFEDownloaderRootPath))
-            Directory.CreateDirectory(SystemProfile.XFEDownloaderRootPath);
+        XFEProfile.LoadProfiles(typeof(SystemProfile), typeof(ToolFormProfile)).Wait();
+        if (!Directory.Exists(ToolFormProfile.XFEDownloaderRootPath))
+            Directory.CreateDirectory(ToolFormProfile.XFEDownloaderRootPath);
         switch (AdministratorPermission.PermissionState)
         {
             case CurrentPermissionState.Administration:

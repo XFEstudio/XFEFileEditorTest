@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using XFEFileEditor.Profiles;
 using XFE各类拓展.NetCore.FileExtension;
 using XFE各类拓展.NetCore.StringExtension;
 using XFE各类拓展.NetCore.WebExtension;
@@ -8,12 +9,14 @@ namespace XFEFileEditor
     public partial class XFEDownloaderForm : Form
     {
         public bool IsDownloadPausedOrCompleted { get; set; } = true;
+        public static XFEDownloaderForm? Current { get; private set; }
         public XFEDownloader? CurrentDownloader { get; set; }
         public XFEDownloaderForm()
         {
             InitializeComponent();
-            threadCountTrackBar.Value = SystemProfile.DownloadThreadCount;
-            fileDownloadPathLabel.Text = $"根目录：{SystemProfile.XFEDownloaderRootPath}";
+            Current = this;
+            threadCountTrackBar.Value = ToolFormProfile.DownloadThreadCount;
+            fileDownloadPathLabel.Text = $"根目录：{ToolFormProfile.XFEDownloaderRootPath}";
         }
 
         private void SettingToolStripMenuItem_Click(object sender, EventArgs e)
@@ -48,7 +51,7 @@ namespace XFEFileEditor
             CurrentDownloader = new XFEDownloader()
             {
                 DownloadUrl = downloadUrlTextBox.Text,
-                SavePath = $"{SystemProfile.XFEDownloaderRootPath}/{downloadFileNameTextBox.Text}",
+                SavePath = $"{ToolFormProfile.XFEDownloaderRootPath}/{downloadFileNameTextBox.Text}",
                 FileSegmentCount = threadCountTrackBar.Value
             };
             Invoke(() =>
@@ -96,18 +99,18 @@ namespace XFEFileEditor
         {
             var folderSelector = new FolderBrowserDialog()
             {
-                SelectedPath = SystemProfile.XFEDownloaderRootPath
+                SelectedPath = ToolFormProfile.XFEDownloaderRootPath
             };
             if (folderSelector.ShowDialog() == DialogResult.OK)
             {
-                SystemProfile.XFEDownloaderRootPath = folderSelector.SelectedPath;
+                ToolFormProfile.XFEDownloaderRootPath = folderSelector.SelectedPath;
             }
-            Invoke(() => fileDownloadPathLabel.Text = $"根目录：{Path.GetFullPath(SystemProfile.XFEDownloaderRootPath)}");
+            Invoke(() => fileDownloadPathLabel.Text = $"根目录：{Path.GetFullPath(ToolFormProfile.XFEDownloaderRootPath)}");
         }
 
-        private void OpenFolderButton_Click(object sender, EventArgs e) => Process.Start("explorer.exe", SystemProfile.XFEDownloaderRootPath);
+        private void OpenFolderButton_Click(object sender, EventArgs e) => Process.Start("explorer.exe", ToolFormProfile.XFEDownloaderRootPath);
 
-        private void ThreadCountTrackBar_Scroll(object sender, EventArgs e) => SystemProfile.DownloadThreadCount = threadCountTrackBar.Value;
+        private void ThreadCountTrackBar_Scroll(object sender, EventArgs e) => ToolFormProfile.DownloadThreadCount = threadCountTrackBar.Value;
 
         private async void DownloadUrlTextBox_TextChanged(object sender, EventArgs e)
         {

@@ -42,6 +42,7 @@
             optionSettingToolStripMenuItem = new ToolStripMenuItem();
             toolStripMenuItem = new ToolStripMenuItem();
             xFEDownloaderToolStripMenuItem = new ToolStripMenuItem();
+            stringReplaceToolStripMenuItem = new ToolStripMenuItem();
             bottomPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)fontSizeNumericUpDown).BeginInit();
             menuStrip.SuspendLayout();
@@ -165,7 +166,7 @@
             // toolStripMenuItem
             // 
             toolStripMenuItem.BackColor = Color.FromArgb(50, 50, 50);
-            toolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { xFEDownloaderToolStripMenuItem });
+            toolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { xFEDownloaderToolStripMenuItem, stringReplaceToolStripMenuItem });
             toolStripMenuItem.ForeColor = Color.White;
             toolStripMenuItem.Name = "toolStripMenuItem";
             toolStripMenuItem.Size = new Size(62, 28);
@@ -177,9 +178,19 @@
             xFEDownloaderToolStripMenuItem.ForeColor = Color.White;
             xFEDownloaderToolStripMenuItem.Name = "xFEDownloaderToolStripMenuItem";
             xFEDownloaderToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.D;
-            xFEDownloaderToolStripMenuItem.Size = new Size(270, 34);
+            xFEDownloaderToolStripMenuItem.Size = new Size(340, 34);
             xFEDownloaderToolStripMenuItem.Text = "XFE下载器";
             xFEDownloaderToolStripMenuItem.Click += XFEDownloaderToolStripMenuItem_Click;
+            // 
+            // stringReplaceToolStripMenuItem
+            // 
+            stringReplaceToolStripMenuItem.BackColor = Color.FromArgb(70, 70, 70);
+            stringReplaceToolStripMenuItem.ForeColor = Color.White;
+            stringReplaceToolStripMenuItem.Name = "stringReplaceToolStripMenuItem";
+            stringReplaceToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.H;
+            stringReplaceToolStripMenuItem.Size = new Size(340, 34);
+            stringReplaceToolStripMenuItem.Text = "文件字符串替换工具";
+            stringReplaceToolStripMenuItem.Click += StringReplaceToolStripMenuItem_Click;
             // 
             // MainForm
             // 
@@ -211,7 +222,6 @@
         private NumericUpDown fontSizeNumericUpDown;
         private Label fontSizeLabel;
         private FlowLayoutPanel bottomPanel;
-        private SplitContainer splitContainer1;
         private Label saveStateLabel;
         private MenuStrip menuStrip;
         private ToolStripMenuItem 文件ToolStripMenuItem;
@@ -222,5 +232,6 @@
         private ToolStripMenuItem optionSettingToolStripMenuItem;
         private ToolStripMenuItem toolStripMenuItem;
         private ToolStripMenuItem xFEDownloaderToolStripMenuItem;
+        private ToolStripMenuItem stringReplaceToolStripMenuItem;
     }
 }
